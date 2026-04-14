@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #0f2027, #00f7ff, #203a43, #ff00c8);
+    background-size: 400% 400%;
+    animation: move 10s ease infinite;
+    z-index: -1;
+}
+
+@keyframes move {
+    0% {background-position: 0%}
+    50% {background-position: 100%}
+    100% {background-position: 0%}
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 8%;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    font-size: 18px;
+    color: #00f7ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    font-size: 13px;
+}
+
+.nav-btn:hover {
+    background: #00f7ff;
+    color: black;
+}
+
+.nav-btn.active {
+    background: #00f7ff;
+    color: black;
+}
+
+section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.glass-card {
+    width: 280px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00f7ff;
+}
+
+.tag {
+    opacity: 0.7;
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.work-text {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.socials {
+    margin-top: 10px;
+}
+
+.social-btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px auto;
+    padding: 10px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    font-size: 13px;
+}
+
+.fb:hover { background: #1877F2; }
+.ig:hover { background: #E1306C; }
+.dc:hover { background: #5865F2; }
+.tg:hover { background: #24A1DE; }
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.feature-card i {
+    color: #00f7ff;
+    margin-bottom: 5px;
+}
+
+.downloads {
+    margin-top: 10px;
+}
+
+.download-item {
+    background: rgba(255,255,255,0.08);
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    margin-top: 8px;
+    background: #00f7ff;
+    color: black;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.download-btn.disabled {
+    background: gray;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+footer {
+    text-align: center;
+    padding: 12px;
+    background: rgba(0,0,0,0.3);
+    margin-top: auto;
+}
+
+@media(max-width: 700px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .glass-card {
+        width: 90%;
+    }
+}
