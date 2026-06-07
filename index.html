@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RongZaZam</title>
+<title>RongZaZam |</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
@@ -11,89 +11,150 @@
 
 <body>
 
-<div class="bg"></div>
+<div class="bg-grid"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<audio id="bgMusic" src="song.mp3" loop autoplay></audio>
+
+<div class="loader" id="loader">
+    <div class="loader-box">
+        <span></span>
+        <p>Loading...</p>
+    </div>
+</div>
 
 <nav class="navbar">
-    <h1 class="logo">RongZaZam</h1>
+    <a href="index.html" class="brand">
+        <span>R</span>ongZaZam
+    </a>
 
-    <div class="nav-links">
-        <a href="index.html" class="nav-btn active">🏠 Home</a>
-        <a href="download.html" class="nav-btn">⬇ Downloads</a>
+    <div class="nav-menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="download.html">Downloads</a>
     </div>
+
+    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
 </nav>
 
-<section>
-    <div class="container">
+<main class="hero">
 
-        <div class="glass-card">
+    <div class="hero-left">
+        <p class="mini-title">Minecraft Dev • Web Dev • Creator</p>
 
-            <img src="rong.png" class="avatar">
+        <h1>
+            Building Clean<br>
+            <span>Digital Systems</span>
+        </h1>
 
-            <h2>My Social</h2>
-            <p class="tag">Contact For Work</p>
+        <h2 class="typing-line">
+            I am <span id="typingText"></span>
+        </h2>
 
-            <p class="work-text">
-                I accept Minecraft developer work and website development.
-            </p>
+        <p class="hero-desc">
+            I create Minecraft server setups custom plugins modern websites,
+            dashboards stores and online systems for communities and creators.
+        </p>
 
-            <div class="socials">
+        <div class="hero-buttons">
+            <a href="https://t.me/rong_kim" class="primary-btn">
+                Contact Me
+                <i class="fa-brands fa-telegram"></i>
+            </a>
 
-                <a href="https://www.facebook.com/rong.zazam/" class="social-btn fb">
-                    <i class="fa-brands fa-facebook-f"></i> Facebook
-                </a>
-
-                <a href="https://www.instagram.com/rongzazam?igsh=MXVvOTlrZjE0a3ZzOQ%3D%3D&utm_source=qr" class="social-btn ig">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-
-                <a href="https://discord.gg/sbWybHyK" class="social-btn dc">
-                    <i class="fa-brands fa-discord"></i> Discord
-                </a>
-
-                <a href="https://t.me/rong_kim" class="social-btn tg">
-                    <i class="fa-brands fa-telegram"></i> Telegram
-                </a>
-
-            </div>
-
+            <a href="download.html" class="secondary-btn">
+                View Plugins
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
 
-        <div class="glass-card">
-
-            <h2>My Skills</h2>
-
-            <div class="features">
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-cube"></i>
-                    <h3>Minecraft Developer</h3>
-                    <p>Plugins, servers, custom Setup</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-code"></i>
-                    <h3>Website Developer</h3>
-                    <p>Modern responsive websites Hosting</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h3>Trade Investment</h3>
-                    <p>Quick and clean work</p>
-                </div>
-
+        <div class="stats">
+            <div class="stat-box">
+                <i class="fa-solid fa-server"></i>
+                <h3>Minecraft Systems</h3>
+                <p>Custom plugins server setup ranks configs and gameplay systems.</p>
             </div>
 
+            <div class="stat-box">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>Web Development</h3>
+                <p>Modern responsive websites hosting panels and clean UI pages.</p>
+            </div>
+
+            <div class="stat-box">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>Fast Delivery</h3>
+                <p>Quick response active support clean work and smooth results.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-right">
+        <div class="profile-card">
+            <div class="profile-banner"></div>
+
+            <div class="profile-content">
+                <img src="rong.png" class="profile-img" alt="RongZaZam">
+
+                <h2>RongZaZam</h2>
+                <p class="role">Developer & Creator</p>
+
+                <div class="available">
+                    <span></span>
+                    Available for work
+                </div>
+
+                <div class="profile-tags">
+                    <small>Minecraft</small>
+                    <small>Website</small>
+                    <small>Plugins</small>
+                </div>
+
+                <div class="social-grid">
+                    <a href="https://www.facebook.com/rong.zazam/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/rongzazam?igsh=MXVvOTlrZjE0a3ZzOQ%3D%3D&utm_source=qr"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://discord.gg/sbWybHyK"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://t.me/rong_kim"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<section class="services">
+    <div class="section-title">
+        <p>Services</p>
+        <h2>What I Can Build</h2>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
+            <h3>Minecraft Server Setup</h3>
+            <p>Ranks, permissions plugins shops crates menus configs and protection.</p>
         </div>
 
+        <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+            <h3>Website Development</h3>
+            <p>Portfolio store landing page dashboard login/register and responsive UI.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3>Custom Systems</h3>
+            <p>Order systems Discord/Telegram links payment flow panels and automation ideas.</p>
+        </div>
     </div>
 </section>
 
 <footer>
-    <p>© 2026 Rong</p>
+    <p>© 2026 RongZaZam. All Rights Reserved.</p>
 </footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
