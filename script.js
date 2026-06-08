@@ -1,46 +1,170 @@
+// =====================
+// LOADER FIX
+// =====================
 
+const loader = document.getElementById("loader");
+
+function hideLoader() {
+    if (loader) {
+        loader.classList.add("hide");
+
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 500);
+    }
+}
+
+window.addEventListener("load", hideLoader);
+
+// backup: hide loader even if page load has problem
+setTimeout(hideLoader, 1500);
+
+
+// =====================
+// MUSIC / INTRO
+// =====================
+
+const introScreen = document.getElementById("introScreen");
+const enterBtn = document.getElementById("enterBtn");
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+if (bgMusic) {
+    bgMusic.volume = 0.35;
+}
+
+if (enterBtn && bgMusic) {
+    enterBtn.addEventListener("click", () => {
+        bgMusic.play();
+
+        localStorage.setItem("musicEnabled", "true");
+
+        if (introScreen) {
+            introScreen.classList.add("intro-hide");
+
+            setTimeout(() => {
+                introScreen.style.display = "none";
+            }, 400);
+        }
+
+        updateMusicIcon();
+    });
+}
+
+if (localStorage.getItem("musicEnabled") === "true") {
+    if (introScreen) {
+        introScreen.style.display = "none";
+    }
+
+    if (bgMusic) {
+        bgMusic.play().catch(() => {});
+    }
+}
+
+function toggleMusic() {
+    if (!bgMusic) return;
+
+    if (bgMusic.paused) {
+        bgMusic.play();
+        localStorage.setItem("musicEnabled", "true");
+    } else {
+        bgMusic.pause();
+        localStorage.setItem("musicEnabled", "false");
+    }
+
+    updateMusicIcon();
+}
+
+function updateMusicIcon() {
+    if (!musicBtn || !bgMusic) return;
+
+    musicBtn.innerHTML = bgMusic.paused
+        ? `<i class="fa-solid fa-volume-xmark"></i>`
+        : `<i class="fa-solid fa-volume-high"></i>`;
+}
+
+
+// =====================
+// TYPING TEXT
+// =====================
+
+const typingText = document.getElementById("typingText");
+
+const words = [
+    "Minecraft Developer",
+    "Website Developer",
+    "Plugin Creator",
+    "Freelancer"
+];
+
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+    if (!typingText) return;
+
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+        typingText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1200);
+            return;
+        }
+    } else {
+        typingText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
+    }
+
+    setTimeout(typeEffect, deleting ? 45 : 80);
+}
+
+typeEffect();
+
+
+// =====================
+// PLAYLIST PLAYER
+// =====================
 
 const audioPlayer = document.getElementById("audioPlayer");
 const songItems = document.querySelectorAll(".song-item");
 
 let currentSong = null;
 
-songItems.forEach(item => {
-
+songItems.forEach((item) => {
     const playBtn = item.querySelector(".song-play");
-    const icon = playBtn.querySelector("i");
+    const icon = playBtn?.querySelector("i");
     const songSrc = item.dataset.src;
+
+    if (!playBtn || !icon || !audioPlayer) return;
 
     playBtn.addEventListener("click", () => {
 
-        // Pause current song
-        if (
-            currentSong === item &&
-            audioPlayer &&
-            !audioPlayer.paused
-        ) {
+        if (currentSong === item && !audioPlayer.paused) {
             audioPlayer.pause();
-
             icon.className = "fa-solid fa-play";
             item.classList.remove("playing");
-
             return;
         }
 
-        // Reset all buttons
-        songItems.forEach(song => {
+        songItems.forEach((song) => {
             song.classList.remove("playing");
 
-            const songIcon =
-                song.querySelector(".song-play i");
-
+            const songIcon = song.querySelector(".song-play i");
             if (songIcon) {
-                songIcon.className =
-                    "fa-solid fa-play";
+                songIcon.className = "fa-solid fa-play";
             }
         });
 
-        // Load new song
         if (currentSong !== item) {
             audioPlayer.src = songSrc;
             currentSong = item;
@@ -53,19 +177,34 @@ songItems.forEach(item => {
     });
 });
 
-// Song ended
 if (audioPlayer) {
-
     audioPlayer.addEventListener("ended", () => {
-
         if (!currentSong) return;
 
         currentSong.classList.remove("playing");
 
-        currentSong
-            .querySelector(".song-play i")
-            .className = "fa-solid fa-play";
+        const icon = currentSong.querySelector(".song-play i");
+        if (icon) icon.className = "fa-solid fa-play";
 
         currentSong = null;
     });
 }
+
+
+// =====================
+// BLOCK INSPECT
+// =====================
+
+document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+});
+
+document.addEventListener("keydown", function (e) {
+    if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.key.toLowerCase() === "u")
+    ) {
+        e.preventDefault();
+    }
+});
