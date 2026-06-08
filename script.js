@@ -1,64 +1,30 @@
-// =====================
 // LOADER FIX
-// =====================
-
 const loader = document.getElementById("loader");
 
 function hideLoader() {
-    if (loader) {
-        loader.classList.add("hide");
+    if (!loader) return;
 
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 500);
-    }
+    loader.classList.add("hide");
+
+    setTimeout(() => {
+        loader.style.display = "none";
+    }, 500);
 }
 
 window.addEventListener("load", hideLoader);
-
-// backup: hide loader even if page load has problem
 setTimeout(hideLoader, 1500);
 
 
-// =====================
-// MUSIC / INTRO
-// =====================
-
-const introScreen = document.getElementById("introScreen");
-const enterBtn = document.getElementById("enterBtn");
+// BACKGROUND MUSIC
 const bgMusic = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
 if (bgMusic) {
     bgMusic.volume = 0.35;
-}
 
-if (enterBtn && bgMusic) {
-    enterBtn.addEventListener("click", () => {
-        bgMusic.play();
-
-        localStorage.setItem("musicEnabled", "true");
-
-        if (introScreen) {
-            introScreen.classList.add("intro-hide");
-
-            setTimeout(() => {
-                introScreen.style.display = "none";
-            }, 400);
-        }
-
-        updateMusicIcon();
+    bgMusic.play().catch(() => {
+        console.log("Autoplay blocked. User must click music button.");
     });
-}
-
-if (localStorage.getItem("musicEnabled") === "true") {
-    if (introScreen) {
-        introScreen.style.display = "none";
-    }
-
-    if (bgMusic) {
-        bgMusic.play().catch(() => {});
-    }
 }
 
 function toggleMusic() {
@@ -66,10 +32,8 @@ function toggleMusic() {
 
     if (bgMusic.paused) {
         bgMusic.play();
-        localStorage.setItem("musicEnabled", "true");
     } else {
         bgMusic.pause();
-        localStorage.setItem("musicEnabled", "false");
     }
 
     updateMusicIcon();
@@ -84,10 +48,7 @@ function updateMusicIcon() {
 }
 
 
-// =====================
 // TYPING TEXT
-// =====================
-
 const typingText = document.getElementById("typingText");
 
 const words = [
@@ -131,10 +92,7 @@ function typeEffect() {
 typeEffect();
 
 
-// =====================
 // PLAYLIST PLAYER
-// =====================
-
 const audioPlayer = document.getElementById("audioPlayer");
 const songItems = document.querySelectorAll(".song-item");
 
@@ -148,7 +106,6 @@ songItems.forEach((item) => {
     if (!playBtn || !icon || !audioPlayer) return;
 
     playBtn.addEventListener("click", () => {
-
         if (currentSong === item && !audioPlayer.paused) {
             audioPlayer.pause();
             icon.className = "fa-solid fa-play";
@@ -191,10 +148,7 @@ if (audioPlayer) {
 }
 
 
-// =====================
 // BLOCK INSPECT
-// =====================
-
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
