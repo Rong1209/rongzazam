@@ -1,4 +1,4 @@
-// LOADER FIX
+/* LOADER SAFE FIX */
 const loader = document.getElementById("loader");
 
 function hideLoader() {
@@ -8,14 +8,18 @@ function hideLoader() {
 
     setTimeout(() => {
         loader.style.display = "none";
-    }, 500);
+    }, 400);
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(hideLoader, 300);
+});
+
 window.addEventListener("load", hideLoader);
-setTimeout(hideLoader, 1500);
+setTimeout(hideLoader, 1200);
 
 
-// BACKGROUND MUSIC
+/* BACKGROUND MUSIC */
 const bgMusic = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
@@ -23,7 +27,7 @@ if (bgMusic) {
     bgMusic.volume = 0.35;
 
     bgMusic.play().catch(() => {
-        console.log("Autoplay blocked. User must click music button.");
+        updateMusicIcon();
     });
 }
 
@@ -31,7 +35,7 @@ function toggleMusic() {
     if (!bgMusic) return;
 
     if (bgMusic.paused) {
-        bgMusic.play();
+        bgMusic.play().catch(() => {});
     } else {
         bgMusic.pause();
     }
@@ -43,12 +47,12 @@ function updateMusicIcon() {
     if (!musicBtn || !bgMusic) return;
 
     musicBtn.innerHTML = bgMusic.paused
-        ? `<i class="fa-solid fa-volume-xmark"></i>`
-        : `<i class="fa-solid fa-volume-high"></i>`;
+        ? '<i class="fa-solid fa-volume-xmark"></i>'
+        : '<i class="fa-solid fa-volume-high"></i>';
 }
 
 
-// TYPING TEXT
+/* TYPING TEXT */
 const typingText = document.getElementById("typingText");
 
 const words = [
@@ -92,7 +96,7 @@ function typeEffect() {
 typeEffect();
 
 
-// PLAYLIST PLAYER
+/* PLAYLIST PLAYER */
 const audioPlayer = document.getElementById("audioPlayer");
 const songItems = document.querySelectorAll(".song-item");
 
@@ -100,10 +104,10 @@ let currentSong = null;
 
 songItems.forEach((item) => {
     const playBtn = item.querySelector(".song-play");
-    const icon = playBtn?.querySelector("i");
-    const songSrc = item.dataset.src;
+    const icon = playBtn ? playBtn.querySelector("i") : null;
+    const songSrc = item.getAttribute("data-src");
 
-    if (!playBtn || !icon || !audioPlayer) return;
+    if (!playBtn || !icon || !audioPlayer || !songSrc) return;
 
     playBtn.addEventListener("click", () => {
         if (currentSong === item && !audioPlayer.paused) {
@@ -127,10 +131,13 @@ songItems.forEach((item) => {
             currentSong = item;
         }
 
-        audioPlayer.play();
-
-        item.classList.add("playing");
-        icon.className = "fa-solid fa-pause";
+        audioPlayer.play().then(() => {
+            item.classList.add("playing");
+            icon.className = "fa-solid fa-pause";
+        }).catch(() => {
+            icon.className = "fa-solid fa-play";
+            item.classList.remove("playing");
+        });
     });
 });
 
@@ -148,7 +155,7 @@ if (audioPlayer) {
 }
 
 
-// BLOCK INSPECT
+/* BLOCK INSPECT */
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
 });
